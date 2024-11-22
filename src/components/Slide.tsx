@@ -6,19 +6,6 @@ interface SlideProps {
   isActive: boolean;
 }
 
-const UNSPLASH_IMAGES = [
-  "photo-1498050108023-c5249f4df085",
-  "photo-1488590528505-98d2b5aba04b",
-  "photo-1518770660439-4636190af475",
-  "photo-1461749280684-dccba630e2f6",
-  "photo-1486312338219-ce68d2c6f44d",
-  "photo-1581091226825-a6a2a5aee158",
-  "photo-1485827404703-89b55fcc595e",
-  "photo-1460925895917-afdab827c52f",
-  "photo-1500375592092-40eb2168fd21",
-  "photo-1649972904349-6e44c42644a7",
-];
-
 export const Slide = ({ text, imageIndex, isActive }: SlideProps) => {
   const [mounted, setMounted] = useState(false);
 
@@ -26,17 +13,13 @@ export const Slide = ({ text, imageIndex, isActive }: SlideProps) => {
     setMounted(true);
   }, []);
 
-  // Ensure we get a valid index within the array bounds
-  const safeImageIndex = Math.abs(imageIndex) % UNSPLASH_IMAGES.length;
-  const imageId = UNSPLASH_IMAGES[safeImageIndex];
-
   return (
     <div
       className={`absolute inset-0 transition-opacity duration-500 ${
         isActive ? "opacity-100" : "opacity-0"
       } ${mounted ? "slide-enter" : ""}`}
       style={{
-        backgroundImage: `url(https://images.unsplash.com/${imageId}?auto=format&fit=crop&w=1920&q=80)`,
+        backgroundImage: `url(https://picsum.photos/seed/${imageIndex}/1920/1080)`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
