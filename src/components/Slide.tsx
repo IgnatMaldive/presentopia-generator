@@ -26,20 +26,22 @@ export const Slide = ({ text, imageIndex, isActive }: SlideProps) => {
     setMounted(true);
   }, []);
 
+  // Ensure we get a valid index within the array bounds
+  const safeImageIndex = Math.abs(imageIndex) % UNSPLASH_IMAGES.length;
+  const imageId = UNSPLASH_IMAGES[safeImageIndex];
+
   return (
     <div
       className={`absolute inset-0 transition-opacity duration-500 ${
         isActive ? "opacity-100" : "opacity-0"
       } ${mounted ? "slide-enter" : ""}`}
       style={{
-        backgroundImage: `url(https://images.unsplash.com/${
-          UNSPLASH_IMAGES[imageIndex % UNSPLASH_IMAGES.length]
-        }?auto=format&fit=crop&w=1920&q=80)`,
+        backgroundImage: `url(https://images.unsplash.com/${imageId}?auto=format&fit=crop&w=1920&q=80)`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      <div className="slide-overlay absolute inset-0 flex items-center justify-center p-8">
+      <div className="slide-overlay absolute inset-0 flex items-center justify-center p-8 bg-black/40">
         <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-light text-center max-w-4xl leading-tight">
           {text}
         </h2>
